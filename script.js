@@ -4,6 +4,16 @@ let quoteText = document.getElementById("quote");
 let authorText = document.getElementById("author");
 let twitterBtn = document.getElementById("twitter");
 let newQuoteBtn = document.getElementById("new-quote");
+let loader = document.getElementById("loader");
+
+function showLoadingSpinner() {
+  loader.hidden = false;
+  quoteContainer.hidden = true;
+}
+function removeLoadingSpinner() {
+  loader.hidden = true;
+  quoteContainer.hidden = false;
+}
 
 let apiQuotes = [];
 function handleNewQuote() {
@@ -16,6 +26,7 @@ function handleNewQuote() {
 }
 
 async function getQuotes() {
+  showLoadingSpinner();
   try {
     const apiUrl = "https://type.fit/api/quotes";
     const response = await fetch(apiUrl);
@@ -25,6 +36,7 @@ async function getQuotes() {
     alert(error);
     console.error(error);
   }
+  removeLoadingSpinner();
 }
 
 function buildTweeterUrl(text, author) {
